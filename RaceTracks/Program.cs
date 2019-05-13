@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace RaceTracks {
-#if WINDOWS || LINUX
+namespace Racetracks {
     /// <summary>
     /// The main class.
     /// </summary>
@@ -13,9 +12,8 @@ namespace RaceTracks {
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = new Racetracks())
                 game.Run();
         }
     }
-#endif
 }
