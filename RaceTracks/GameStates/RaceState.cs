@@ -32,6 +32,14 @@ namespace Racetracks {
 
             //load scenery
             new LevelLoader().LoadLevel(this);
+
+			foreach(GameObject gameObject in Children)
+			{
+				if(gameObject is Body)
+				{
+					bodies.Add(gameObject);
+				}
+			}
         }
 
         /// <summary>
@@ -43,6 +51,17 @@ namespace Racetracks {
 
             //reposition screen to follow the player with 'camera'
             position = GameEnvironment.Screen.ToVector2() * 0.5f - player.Position;
+
+			foreach(Body body in bodies.Children)
+			{
+				foreach(Body otherBody in bodies.Children)
+				{
+					if(body != otherBody)
+					{
+						body.Collision(otherBody);
+					}
+				}
+			}
         }
     }
 }

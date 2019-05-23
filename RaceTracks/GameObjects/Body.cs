@@ -37,6 +37,24 @@ namespace Racetracks
 			force = Vector2.Zero;
         }
 
+		public void Collision(Body other)
+		{
+			Vector2 distance = position - other.position;
+
+			if(distance.Length() < radius + other.radius)
+			{
+				distance.Normalize();
+				distance *= (position - other.position).Length() - radius - other.radius;
+				position -= distance / 2;
+				other.position += distance / 2;
+
+				Vector2 newVel = ((Mass - other.Mass) * velocity + (2 * other.Mass * other.velocity)) / (Mass + other.Mass);
+				other.velocity = ((other.Mass - Mass) * other.velocity + (2 * Mass * velocity)) / (other.Mass + Mass);
+
+				velocity = newVel;
+			}
+		}
+
         /// <summary>Returns closest point on this shape</summary>        
         public Vector2 GetClosestPoint(Vector2 point)
         {
