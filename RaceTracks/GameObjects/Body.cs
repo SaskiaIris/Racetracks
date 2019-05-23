@@ -9,7 +9,11 @@ namespace Racetracks
     {
         protected float radius;
         private Vector2 acceleration = Vector2.Zero;
+		protected Vector2 force = Vector2.Zero;
         private float invMass = 1.0f; //set indirectly by setting 'mass'
+		protected const float STEERING = 0.04f;
+		private const int MAX_SPEED = 800;
+		private const float FRICTION = 0.96f;
                 
         /// <summary>Creates a physics body</summary>
         public Body(Vector2 position, string assetName) : base(assetName)
@@ -25,6 +29,12 @@ namespace Racetracks
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+			acceleration = force / Mass;
+			if (velocity.Length() < MAX_SPEED) {
+				velocity += acceleration;
+			}
+			velocity *= FRICTION;
+			force = Vector2.Zero;
         }
 
         /// <summary>Returns closest point on this shape</summary>        

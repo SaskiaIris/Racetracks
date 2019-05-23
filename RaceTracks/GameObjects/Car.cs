@@ -22,6 +22,21 @@ namespace Racetracks
         public override void HandleInput(InputHelper inputHelper)
         {
             base.HandleInput(inputHelper);
+			if (inputHelper.IsKeyDown(Keys.W) || inputHelper.IsKeyDown(Keys.Up))
+			{
+				force = Forward * 9000;
+			} else if(inputHelper.IsKeyDown(Keys.S) || inputHelper.IsKeyDown(Keys.Down))
+			{
+				force = Forward * -9000;
+			}
+
+			if (inputHelper.IsKeyDown(Keys.A) || inputHelper.IsKeyDown(Keys.Left))
+			{
+				Angle -= STEERING;
+			} else if(inputHelper.IsKeyDown(Keys.D) || inputHelper.IsKeyDown(Keys.Right))
+			{
+				Angle += STEERING;
+			}
         }
 
     }
